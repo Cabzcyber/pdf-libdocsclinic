@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Plus, Printer, Search } from 'lucide-react';
+import { Plus, Printer, Search, FileText } from 'lucide-react';
+import Link from 'next/link';
 import PatientForm from '@/components/PatientForm';
 import { generatePatientPDF, Patient, CivilStatus } from '@/lib/pdf-generator';
 
@@ -93,7 +94,7 @@ const MOCK_PATIENTS: Patient[] = [
     pp2BreastFeeding: true,
     pp2ManagementRemarks: "Patient fully recovered.",
     pp2Supplementation: "None",
-    pp2NoBreastFeedingReason: null,
+    pp2NoBreastFeedingReason: "Cancer",
 
     // --- OB HISTORY ARRAY (Loop Test) ---
     obHistory: [
@@ -120,7 +121,8 @@ const MOCK_PATIENTS: Patient[] = [
       weight: "55",
       fundicHeight: "N/A",
       fetalHeartTone: "N/A",
-      vitaminsTaken: "Folic Acid"
+      vitaminsTaken: "Folic Acid",
+      remarks: "Normal findings"
     },
 
     // --- Delivery Additional Details ---
@@ -154,13 +156,22 @@ export default function PatientsPage() {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Patient Management</h1>
-          <button
-            onClick={() => setIsFormOpen(true)}
-            className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors shadow-sm"
-          >
-            <Plus className="w-5 h-5 mr-2" />
-            Add Patient
-          </button>
+          <div className="flex space-x-4">
+            <Link
+              href="/labor-records"
+              className="flex items-center px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors shadow-sm"
+            >
+              <FileText className="w-5 h-5 mr-2" />
+              Go to Labor Records
+            </Link>
+            <button
+              onClick={() => setIsFormOpen(true)}
+              className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors shadow-sm"
+            >
+              <Plus className="w-5 h-5 mr-2" />
+              Add Patient
+            </button>
+          </div>
         </div>
 
         {/* Search Bar */}

@@ -4,14 +4,15 @@ const fs = require('fs');
 async function checkFields() {
   try {
     console.log('Reading PDF...');
-    const pdfBytes = fs.readFileSync('public/template.pdf');
+    const pdfBytes = fs.readFileSync('public/template1.pdf');
     const pdfDoc = await PDFDocument.load(pdfBytes);
     const form = pdfDoc.getForm();
-    const fields = form.getFields().map(f => f.getName());
+    const fields = form.getFields().map(f => `${f.getName()} (${f.constructor.name})`);
     
     console.log(`Found ${fields.length} fields.`);
     console.log('Fields list:');
-    fields.forEach(f => console.log(`- "${f}"`));
+    fs.writeFileSync('fields.txt', fields.join('\n'));
+    console.log('Fields written to fields.txt');
     
     const expectedFields = [
       'case_number_box', 'last_name_box', 'first_name_box', 'middle_name_box', 

@@ -134,6 +134,7 @@ export interface Patient {
     fundicHeight?: string;
     fetalHeartTone?: string;
     vitaminsTaken?: string;
+    remarks?: string;
   };
 
   // ** Delivery Details Additions **
@@ -222,7 +223,7 @@ export async function generatePatientPDF(patient: Patient) {
     setField('religion', patient.religion);
     setField('occupation', patient.occupation);
     setField('contact_number', patient.contactNumber);
-    // setField('philhealth_number', patient.philHealthNumber); // Field not found in PDF template
+    setField('philhealth_no_phc', patient.philHealthNumber);
 
     // Refactored Fields
     setField('blood_type', patient.bloodType);
@@ -294,6 +295,7 @@ export async function generatePatientPDF(patient: Patient) {
         setField('first_visit_fh', first.fundicHeight); // Fundic Height
         setField('first_visit_fht', first.fetalHeartTone);
         setField('first_visit_vit', first.vitaminsTaken);
+        setField('first_visit_remarks', first.remarks);
     } else if (patient.prenatalAssessments && patient.prenatalAssessments.length > 0) {
         // Fallback to first assessment if specific firstPrenatalVisit not provided
         const first = patient.prenatalAssessments[0];
